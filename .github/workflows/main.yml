@@ -1,0 +1,26 @@
+name: 7/24 Minecraft Botu
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Her 5 dakikada bir botu tetikler
+  workflow_dispatch: # Manuel başlatma butonu açar
+
+jobs:
+  run-bot:
+    runs-allowed: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodları Çek
+        uses: actions/checkout@v4
+
+      - name: Node.js Kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Gerekli Paketleri Yükle
+        run: npm install
+
+      - name: Botu Başlat
+        run: node index.js # Botunun ana dosyası index.js değilse adını değiştir
+        timeout-minutes: 350 # GitHub sınırına takılmamak için süre sınırı
